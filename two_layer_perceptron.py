@@ -26,11 +26,11 @@ class TwoLayerPerceptron:
                 x = point[0]
                 y_expected = point[1]
 
-                hidden_layer_output = self._hidden_layer_output(x)
-                y = self._output_layer_output(hidden_layer_output)
-                error = self._error_function(y_expected, y)
+                hidden_layer_output, output = self._forward(x)
+                self._backpropagation(hidden_layer_output, output, y_expected, x)
 
-        return error
+    def _forward(self, x):
+        return self._hidden_layer_output(x), self._output_layer_output(x)
 
     def _hidden_layer_output(self, x):
         sumed_array = np.dot(self._hidden_layer_weights, np.vstack((x, 1)))
@@ -39,6 +39,15 @@ class TwoLayerPerceptron:
     def _output_layer_output(self, hidden_layer_output):
         sumed = np.dot(self._output_layer_weights, np.vstack((hidden_layer_output, 1.0)))
         return np.take(self._activation_function(sumed), 0)
+
+    def _backpropagation(self, hidden_layer_output, output, y_expected, x):
+        delta = self._error_function_derivative(y_expected, output) * self._activation_function_derivative(output)
+
+        output_layer_weights_diff = hidden_layer_output * delta
+        hidden_layer_weights_diff = delta * self._activation_function_derivative(hidden_layer_output) * x
+
+        self._output_layer_weights -= self._learning_rate * output_layer_weights_diff
+        self._hidden_layer_weights -= self._learning_rate * hidden_layer_weights_diff
 
     def _activation_function(self, x):
         return np.tanh(x)
