@@ -69,4 +69,3 @@ class TwoLayerPerceptron:
             results.append(y)
 
         return results
-    

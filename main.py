@@ -21,10 +21,5 @@ def create_points_for_function(function, lower_bound, upper_bound, how_many):
 
 if __name__ == '__main__':
     dataset = create_points_for_function(approximated_function, Constants.lower_bound(), Constants.upper_bound(), 100)
-
     perceptron = TwoLayerPerceptron(7, 0.003)
-    a = perceptron.train(dataset, 10)
-    print(a)
-
-    # draw_approximated_function_approximation_plot(Constants.lower_bound(), Constants.upper_bound(), approximated_function)
-
+    draw_approximated_function_approximation_plot(Constants.lower_bound(), Constants.upper_bound(), approximated_function, perceptron)
