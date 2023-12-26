@@ -27,15 +27,27 @@ class TwoLayerPerceptron:
                 y_expected = point[1]
 
                 hidden_layer_output = self._hidden_layer_output(x)
+                y = self._output_layer_output(hidden_layer_output)
+                error = self._error_function(y_expected, y)
 
-        return hidden_layer_output
+        return error
 
     def _hidden_layer_output(self, x):
-        sums_array = np.dot(self._hidden_layer_weights, np.vstack((x, 1)))
-        return self._activation_function(sums_array)
+        sumed_array = np.dot(self._hidden_layer_weights, np.vstack((x, 1)))
+        return self._activation_function(sumed_array)
+
+    def _output_layer_output(self, hidden_layer_output):
+        sumed = np.dot(self._output_layer_weights, np.vstack((hidden_layer_output, 1.0)))
+        return np.take(self._activation_function(sumed), 0)
 
     def _activation_function(self, x):
         return np.tanh(x)
+
+    def _error_function(self, y_expected, y_result):
+        return pow(y_result - y_expected, 2)
+
+    def _error_function_derivative(self, y_expected, y_result):
+        return pow(y_result - y_expected, 2)
 
     def predict(self):
         pass
