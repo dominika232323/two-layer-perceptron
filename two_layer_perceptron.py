@@ -43,6 +43,9 @@ class TwoLayerPerceptron:
     def _activation_function(self, x):
         return np.tanh(x)
 
+    def _activation_function_derivative(self, x):
+        return 1 - pow(np.tanh(x), 2)
+
     def _error_function(self, y_expected, y_result):
         return pow(y_result - y_expected, 2)
 
