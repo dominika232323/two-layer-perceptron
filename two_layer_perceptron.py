@@ -30,7 +30,9 @@ class TwoLayerPerceptron:
                 self._backpropagation(hidden_layer_output, output, y_expected, x)
 
     def _forward(self, x):
-        return self._hidden_layer_output(x), self._output_layer_output(x)
+        hidden_output = self._hidden_layer_output(x)
+        output = self._output_layer_output(hidden_output)
+        return hidden_output, output
 
     def _hidden_layer_output(self, x):
         sumed_array = np.dot(self._hidden_layer_weights, np.vstack((x, 1)))
