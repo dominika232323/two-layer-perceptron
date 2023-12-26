@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.utils import shuffle
 
 
 class TwoLayerPerceptron:
@@ -18,8 +19,20 @@ class TwoLayerPerceptron:
         return self._learning_rate
 
     def train(self, dataset, epochs):
-        for epoch in epochs:
-            pass
+        for i in range(1, epochs + 1):
+            shuffled_dataset = shuffle(dataset, random_state=i)
+
+            for point in shuffled_dataset:
+                x = point[0]
+                y_expected = point[1]
+
+                hidden_layer_output = self._hidden_layer_output(x)
+
+        return hidden_layer_output
+
+    def _hidden_layer_output(self, x):
+        sums_array = np.dot(self._hidden_layer_weights, np.vstack((x, 1)))
+        return self._activation_function(sums_array)
 
     def _activation_function(self, x):
         return np.tanh(x)
