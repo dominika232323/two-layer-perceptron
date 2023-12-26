@@ -47,7 +47,7 @@ class TwoLayerPerceptron:
         return pow(y_result - y_expected, 2)
 
     def _error_function_derivative(self, y_expected, y_result):
-        return pow(y_result - y_expected, 2)
+        return (y_result - y_expected) * 2
 
     def predict(self):
         pass
