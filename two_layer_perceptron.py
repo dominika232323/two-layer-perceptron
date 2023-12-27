@@ -7,8 +7,8 @@ class TwoLayerPerceptron:
         self._hidden = hidden
         self._learning_rate = learning_rate
 
-        self._hidden_layer_weights = np.random.uniform((-1), 1, size=(hidden, 2))
-        self._output_layer_weights = np.random.uniform((-1), 1, size=(1, hidden + 1))
+        self._hidden_layer_weights = np.random.uniform((-1/2), 1/2, size=(hidden, 2))
+        self._output_layer_weights = np.random.uniform((-1/2), 1/2, size=(1, hidden + 1))
 
     @property
     def hidden_size(self):
