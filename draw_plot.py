@@ -11,9 +11,8 @@ def draw_approximated_function_approximation_plot(lower_bound, upper_bound, appr
     plt.plot(coordinate_system, y, label='Funkcja aproksymowana')
     plt.plot(coordinate_system, approximation, label='Aproksymacja funkcji')
 
-    plt.xlabel('Oś X')
-    plt.ylabel('Oś Y')
     plt.title('Wykres')
     plt.legend()
 
-    plt.show()
+    plt.savefig(fname=f'plots_results/plot.png')
+    plt.close()
