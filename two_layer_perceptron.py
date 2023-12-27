@@ -72,11 +72,14 @@ class TwoLayerPerceptron:
     def _error_function_derivative(self, y_expected, y_result):
         return (y_result - y_expected) * 2
 
-    def predict(self, x_dataset):
-        results = []
-
-        for x in x_dataset:
-            h, y = self._forward(x)
-            results.append(y)
-
-        return results
+    def predict(self, x):
+        # results = []
+        #
+        # for x in x_dataset:
+        #     h, y = self._forward(x)
+        #     results.append(y)
+        #
+        # return results
+        h, y = self._forward(x)
+        return y
+    
