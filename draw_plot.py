@@ -6,7 +6,7 @@ def draw_approximated_function_approximation_plot(lower_bound, upper_bound, appr
     coordinate_system = np.linspace(lower_bound, upper_bound, 200)
 
     y = approximated_func(coordinate_system)
-    approximation = [perceptron.predict(x) for x in coordinate_system]
+    approximation = perceptron.predict(coordinate_system)
 
     plt.plot(coordinate_system, y, label='Funkcja aproksymowana')
     plt.plot(coordinate_system, approximation, label='Aproksymacja funkcji')
