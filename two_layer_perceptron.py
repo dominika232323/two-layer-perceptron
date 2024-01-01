@@ -43,22 +43,13 @@ class TwoLayerPerceptron:
         return np.take(sumed, 0)
 
     def _backpropagation(self, hidden_layer_output, output, y_expected, x):
-        delta = self._error_function_derivative(y_expected, output) * self._activation_function_derivative(output)
+        output_gradient = self._error_function_derivative(y_expected, output) * np.vstack((hidden_layer_output, 1.0)).T
 
-        new_array = np.vstack((hidden_layer_output, 1)).T
-        output_layer_weights_diff = new_array * delta
-        hidden_layer_weights_diff = delta * self._activation_function_derivative(hidden_layer_output) * x
+        diff_matrix = np.ones((self._hidden, 1), dtype = float) - np.square(hidden_layer_output)
+        hidden_gradient = np.dot(self._error_function_derivative(y_expected, output)*(self._output_layer_weights.T)[:-1, :]*diff_matrix, np.array([[x, 1]]))
 
-        self._output_layer_weights -= self._learning_rate * output_layer_weights_diff
-        self._hidden_layer_weights -= self._learning_rate * hidden_layer_weights_diff
-
-        # output_gradient = self._error_function_derivative(y_expected, output) * np.vstack((hidden_layer_output, 1.0)).T
-        #
-        # diff_matrix = np.ones((self._hidden, 1), dtype = float) - np.square(hidden_layer_output)
-        # hidden_gradient = np.dot(self._error_function_derivative(y_expected, output)*(self._output_layer_weights.T)[:-1, :]*diff_matrix, np.array([[x, 1]]))
-        #
-        # self._output_layer_weights -= self._learning_rate * output_gradient
-        # self._hidden_layer_weights -= self._learning_rate * hidden_gradient
+        self._output_layer_weights -= self._learning_rate * output_gradient
+        self._hidden_layer_weights -= self._learning_rate * hidden_gradient
 
     def _activation_function(self, x):
         return np.tanh(x)
