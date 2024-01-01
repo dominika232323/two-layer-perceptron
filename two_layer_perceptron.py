@@ -40,7 +40,7 @@ class TwoLayerPerceptron:
 
     def _output_layer_output(self, hidden_layer_output):
         sumed = np.dot(self._output_layer_weights, np.vstack((hidden_layer_output, 1.0)))
-        return np.take(self._activation_function(sumed), 0)
+        return np.take(sumed, 0)
 
     def _backpropagation(self, hidden_layer_output, output, y_expected, x):
         # delta = self._error_function_derivative(y_expected, output) * self._activation_function_derivative(output)
